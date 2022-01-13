@@ -244,18 +244,20 @@
 
   <buildGradleAdditions>
     <insert>
-        android {
-            compileOptions {
-                targetCompatibility JavaVersion.VERSION_1_8
-                sourceCompatibility JavaVersion.VERSION_1_8
-            }
+      android {
+        compileOptions {
+            targetCompatibility JavaVersion.VERSION_1_8
+            sourceCompatibility JavaVersion.VERSION_1_8
         }
-        
         defaultConfig {
           multiDexEnabled true
         }
+      }
     </insert>
 
+    <insert>
+      dependencies {
+    </insert>
     <if condition="TargetsKids">
       <true>
         <insert>
