@@ -20,7 +20,7 @@
 			"Name": "YodoAds",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Android", "IOS" ]
+			"WhitelistPlatforms": [ "Win64", "Mac", "Android", "IOS" ]
 		}
 	]
 }
