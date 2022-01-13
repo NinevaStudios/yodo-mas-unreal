@@ -14,6 +14,18 @@ class YODOADS_API UYodoAdsSettings : public UObject
 public:
 
 	/** Whether the application targets audience of 13 years and under. */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Meta = (DisplayName = "App targets children under 13 years."))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Meta = (DisplayName = "App targets children under 13 years"))
 	bool bTargetsKids = false;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Android", Meta = (DisplayName = "Android App Key"))
+	FString AndroidAppKey;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Android", Meta = (DisplayName = "Android Admob App ID"))
+	FString AndroidAdmobAppId;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "iOS App Key"))
+	FString iOSAppKey;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "iOS Admob App ID"))
+	FString iOSAdmobAppId;
 };
