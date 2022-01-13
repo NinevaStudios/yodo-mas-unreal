@@ -1,5 +1,8 @@
 // Copyright (c) 2022 Nineva Studios
 
+using System;
+using System.IO;
+using Tools.DotNETCommon;
 using UnrealBuildTool;
 
 public class YodoAds : ModuleRules
@@ -48,6 +51,16 @@ public class YodoAds : ModuleRules
 			{
 				// ... add any modules that your module loads dynamically here ...
 			}
-			);
+		);
+
+		string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
+
+		// Additional routine for Android
+		if (Target.Platform == UnrealTargetPlatform.Android)
+		{
+			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/Android"));
+			PrivateDependencyModuleNames.Add("Launch");
+			AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "YodoAds_Android_UPL.xml"));
+		}
 	}
 }
