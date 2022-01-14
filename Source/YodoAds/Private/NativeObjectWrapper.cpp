@@ -38,7 +38,7 @@ bool UNativeObjectWrapper::IsNativeObjectValid()
 #if !WITH_EDITOR
 	if (!Result)
 	{
-		UE_LOG(YodoAdsLog, Error, TEXT("Native object is not valid."));
+		UE_LOG(LogYodoAds, Error, TEXT("Native object is not valid."));
 	}
 #endif
 

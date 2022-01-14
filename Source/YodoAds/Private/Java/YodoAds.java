@@ -44,16 +44,20 @@ public class YodoAds {
 		Yodo1Mas.getInstance().setAdBuildConfig(builder.build());
 	}
 
-	public static void initialize(Activity activity, String appKey) {
-		Yodo1Mas.getInstance().init(activity, appKey, new Yodo1Mas.InitListener() {
-			@Override
-			public void onMasInitSuccessful() {
-				OnInitSuccess();
-			}
+	public static void initialize(final Activity activity, final String appKey) {
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				Yodo1Mas.getInstance().init(activity, appKey, new Yodo1Mas.InitListener() {
+					@Override
+					public void onMasInitSuccessful() {
+						OnInitSuccess();
+					}
 
-			@Override
-			public void onMasInitFailed(@NonNull Yodo1MasError error) {
-				OnInitError(getErrorString(error));
+					@Override
+					public void onMasInitFailed(@NonNull Yodo1MasError error) {
+						OnInitError(getErrorString(error));
+					}
+				});
 			}
 		});
 	}
