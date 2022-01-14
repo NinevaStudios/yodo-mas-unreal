@@ -44,3 +44,16 @@ void UYodoAdsBanner::Show(EYABannerHorizontalPosition HorizontalPosition, EYABan
 #elif PLATFORM_IOS
 #endif
 }
+
+void UYodoAdsBanner::Destroy()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::Destroy"));
+
+	if (!IsNativeObjectValid())
+		return;
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallVoidMethod(JavaObject, "destroy", "()V");
+#elif PLATFORM_IOS
+#endif
+}

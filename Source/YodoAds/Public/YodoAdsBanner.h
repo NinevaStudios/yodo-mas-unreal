@@ -51,6 +51,9 @@ public:
 	void Show(EYABannerHorizontalPosition HorizontalPosition, EYABannerVerticalPosition VerticalPosition, const FVector2D& Offset);
 
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	void Destroy();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	void BindOnBannerAdLoadedDelegate(const FYAVoidDelegate& OnBannerAdLoadedCallback)
 	{
 		OnBannerAdLoaded = OnBannerAdLoadedCallback;
