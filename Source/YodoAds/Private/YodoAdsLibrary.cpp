@@ -6,6 +6,8 @@
 #include "YodoAdsLog.h"
 #include "YodoAdsBanner.h"
 
+#include "Async/Async.h"
+
 #if PLATFORM_ANDROID
 #include "Android/YAMethodCallUtils.h"
 #include "Android/YAJavaConvertor.h"
@@ -61,3 +63,21 @@ UYodoAdsBanner* UYodoAdsLibrary::MakeBannerAd()
 
 	return Result;
 }
+
+#if PLATFORM_ANDROID
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInitSuccess(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnInitializeSuccess.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInitError(JNIEnv* env, jclass clazz, jstring error)
+{
+	FString Error = YAJavaConvertor::FromJavaString(error);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnInitializeError.ExecuteIfBound(Error);
+	});
+}
+#endif

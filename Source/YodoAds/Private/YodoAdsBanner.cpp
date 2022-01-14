@@ -2,6 +2,8 @@
 
 #include "YodoAdsBanner.h"
 
+#include "Async/Async.h"
+
 void UYodoAdsBanner::SetSize(EYABannerSize Size)
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::SetSize"));
@@ -57,3 +59,54 @@ void UYodoAdsBanner::Destroy()
 #elif PLATFORM_IOS
 #endif
 }
+
+#if PLATFORM_ANDROID
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnBannerAdLoaded(JNIEnv* env, jclass clazz, jlong pointer)
+{
+	UYodoAdsBanner* Banner = reinterpret_cast<UYodoAdsBanner*>(pointer);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		Banner->OnBannerAdLoaded.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnBannerAdFailedToLoad(JNIEnv* env, jclass clazz, jlong pointer, jstring error)
+{
+	UYodoAdsBanner* Banner = reinterpret_cast<UYodoAdsBanner*>(pointer);
+
+	FString Error = YAJavaConvertor::FromJavaString(error);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		Banner->OnBannerAdFailedToLoad.ExecuteIfBound(Error);
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnBannerAdOpened(JNIEnv* env, jclass clazz, jlong pointer)
+{
+	UYodoAdsBanner* Banner = reinterpret_cast<UYodoAdsBanner*>(pointer);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		Banner->OnBannerAdOpened.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnBannerAdFailedToOpen(JNIEnv* env, jclass clazz, jlong pointer, jstring error)
+{
+	UYodoAdsBanner* Banner = reinterpret_cast<UYodoAdsBanner*>(pointer);
+
+	FString Error = YAJavaConvertor::FromJavaString(error);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		Banner->OnBannerAdFailedToOpen.ExecuteIfBound(Error);
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnBannerAdClosed(JNIEnv* env, jclass clazz, jlong pointer)
+{
+	UYodoAdsBanner* Banner = reinterpret_cast<UYodoAdsBanner*>(pointer);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		Banner->OnBannerAdClosed.ExecuteIfBound();
+	});
+}
+#endif
