@@ -4,6 +4,11 @@
 
 #include "YodoAdsLog.h"
 
+#if PLATFORM_ANDROID
+#include "Android/YAMethodCallUtils.h"
+#include "Android/YAJavaConvertor.h"
+#endif
+
 UNativeObjectWrapper::~UNativeObjectWrapper()
 {
 	if (!IsNativeObjectValid())
