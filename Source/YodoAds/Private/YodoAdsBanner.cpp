@@ -6,6 +6,9 @@ void UYodoAdsBanner::SetSize(EYABannerSize Size)
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::SetSize"));
 
+	if (!IsNativeObjectValid())
+		return;
+
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "setBannerSize",
 		"(Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;I)V", JavaObject, (int) Size);
@@ -13,9 +16,25 @@ void UYodoAdsBanner::SetSize(EYABannerSize Size)
 #endif
 }
 
+void UYodoAdsBanner::LoadAd()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::LoadAd"));
+
+	if (!IsNativeObjectValid())
+		return;
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallVoidMethod(JavaObject, "loadAd", "()V");
+#elif PLATFORM_IOS
+#endif
+}
+
 void UYodoAdsBanner::Show(EYABannerHorizontalPosition HorizontalPosition, EYABannerVerticalPosition VerticalPosition, const FVector2D& Offset)
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::Show"));
+
+	if (!IsNativeObjectValid())
+		return;
 
 	int AlignmentFlags = (int) HorizontalPosition | (int) VerticalPosition;
 

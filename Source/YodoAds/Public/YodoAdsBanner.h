@@ -45,6 +45,9 @@ public:
 	void SetSize(EYABannerSize Size);
 
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	void LoadAd();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	void Show(EYABannerHorizontalPosition HorizontalPosition, EYABannerVerticalPosition VerticalPosition, const FVector2D& Offset);
 
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
