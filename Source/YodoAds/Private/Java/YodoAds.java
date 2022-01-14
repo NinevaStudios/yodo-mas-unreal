@@ -70,7 +70,7 @@ public class YodoAds {
 		view.setAdSize(parseSize(size));
 	}
 
-	public static void setBannerCallbacks(Yodo1MasBannerAdView view, final long pointer) {
+	public static void setBannerCallbacksAndLoad(Yodo1MasBannerAdView view, final long pointer) {
 		view.setAdListener(new Yodo1MasBannerAdListener() {
 			@Override
 			public void onBannerAdLoaded(Yodo1MasBannerAdView bannerAdView) {
@@ -97,6 +97,8 @@ public class YodoAds {
 				OnBannerAdClosed(pointer);
 			}
 		});
+
+		view.loadAd();
 	}
 
 	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int alignmentFlags,

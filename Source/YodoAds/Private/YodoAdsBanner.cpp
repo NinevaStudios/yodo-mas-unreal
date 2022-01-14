@@ -26,7 +26,8 @@ void UYodoAdsBanner::LoadAd()
 		return;
 
 #if PLATFORM_ANDROID
-	YAMethodCallUtils::CallVoidMethod(JavaObject, "loadAd", "()V");
+	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "setBannerCallbacksAndLoad",
+		"(Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;J)V", JavaObject, (long) this);
 #elif PLATFORM_IOS
 #endif
 }
