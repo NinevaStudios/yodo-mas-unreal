@@ -99,8 +99,13 @@ public class YodoAds {
 		});
 	}
 
-	public static void showBannerAd(Activity activity, Yodo1MasBannerAdView view, int alignmentFlags, int offsetX, int offsetY) {
-		Yodo1MasBannerUtil.addBannerView(activity, view, alignmentFlags, offsetX, offsetY);
+	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int alignmentFlags,
+	                                final int offsetX, final int offsetY) {
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				Yodo1MasBannerUtil.addBannerView(activity, view, alignmentFlags, offsetX, offsetY);
+			}
+		});
 	}
 
 	private static String getErrorString(Yodo1MasError error) {
