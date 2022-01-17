@@ -1,6 +1,8 @@
 package com.ninevastudios.yodoads;
 
 import android.app.Activity;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -101,11 +103,24 @@ public class YodoAds {
 		view.loadAd();
 	}
 
-	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int alignmentFlags,
-	                                final int offsetX, final int offsetY) {
+	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int alignmentHorizontal,
+	                                final int alignmentVertical, final int offsetX, final int offsetY) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				Yodo1MasBannerUtil.addBannerView(activity, view, alignmentFlags, offsetX, offsetY);
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+				ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+				viewGroup.addView(view);
+			}
+		});
+	}
+
+	public static void destroyBannerAd(Activity activity, final Yodo1MasBannerAdView view) {
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				view.destroy();
 			}
 		});
 	}
