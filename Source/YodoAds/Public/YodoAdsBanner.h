@@ -21,17 +21,17 @@ enum class EYABannerSize : uint8
 UENUM()
 enum class EYABannerHorizontalPosition : uint8
 {
-	Left = 1,
-	Center = 2,
-	Right = 4
+	Left = 0,
+	Center = 1,
+	Right = 2
 };
 
 UENUM()
 enum class EYABannerVerticalPosition : uint8
 {
-	Top = 8,
-	Center = 16,
-	Bottom = 32
+	Top = 0,
+	Center = 1,
+	Bottom = 2
 };
 
 UCLASS(BlueprintType)

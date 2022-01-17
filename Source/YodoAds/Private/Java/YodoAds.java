@@ -1,6 +1,7 @@
 package com.ninevastudios.yodoads;
 
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -107,9 +108,11 @@ public class YodoAds {
 	                                final int alignmentVertical, final int offsetX, final int offsetY) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.WRAP_CONTENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT);
+//				view.setX(offsetX);
+//				view.setY(offsetY);
+
+				view.setHorizontalGravity(parseHorizontalGravity(alignmentHorizontal));
+				view.setVerticalGravity(parseVerticalGravity(alignmentVertical));
 
 				ViewGroup viewGroup = activity.findViewById(android.R.id.content);
 				viewGroup.addView(view);
@@ -117,10 +120,28 @@ public class YodoAds {
 		});
 	}
 
-	public static void destroyBannerAd(Activity activity, final Yodo1MasBannerAdView view) {
+	private static int parseHorizontalGravity(int alignmentHorizontal) {
+		if (alignmentHorizontal == 0)
+			return Gravity.START;
+		if (alignmentHorizontal == 2)
+			return Gravity.END;
+
+		return Gravity.CENTER_HORIZONTAL;
+	}
+
+	private static int parseVerticalGravity(int alignmentVertical) {
+		if (alignmentVertical == 0)
+			return Gravity.TOP;
+		if (alignmentVertical == 2)
+			return Gravity.BOTTOM;
+
+		return Gravity.CENTER_VERTICAL;
+	}
+
+	public static void destroyBannerAd(final Activity activity, final Yodo1MasBannerAdView view) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				view.destroy();
+				
 			}
 		});
 	}
