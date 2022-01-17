@@ -54,7 +54,8 @@ void UYodoAdsBanner::Destroy()
 		return;
 
 #if PLATFORM_ANDROID
-	YAMethodCallUtils::CallVoidMethod(JavaObject, "destroy", "()V");
+	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "destroyBannerAd",
+		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;)V", FJavaWrapper::GameActivityThis, JavaObject);
 #elif PLATFORM_IOS
 #endif
 }
