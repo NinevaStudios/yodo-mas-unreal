@@ -103,12 +103,11 @@ public class YodoAds {
 		view.loadAd();
 	}
 
-	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int alignmentHorizontal,
+	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int bannerType, final int alignmentHorizontal,
 	                                final int alignmentVertical, final int offsetX, final int offsetY) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-
-				ViewGroup.LayoutParams params = Yodo1MasBannerUtil.getLayoutParamsByBannerSize(activity, Yodo1MasBannerAdSize.Banner, null);
+				ViewGroup.LayoutParams params = Yodo1MasBannerUtil.getLayoutParamsByBannerSize(activity, parseSize(bannerType), null);
 				view.setLayoutParams(params);
 
 				setBannerPosition(activity, view, params, alignmentHorizontal, alignmentVertical, offsetX, offsetY);
@@ -137,7 +136,7 @@ public class YodoAds {
 
 	private static int calculatePositionX(int alignmentHorizontal, int screenWidth, int bannerWidth, int offsetX) {
 		int position;
-		if (alignmentHorizontal == 0) {
+		if (alignmentHorizontal == 0 || bannerWidth == ViewGroup.LayoutParams.MATCH_PARENT) {
 			position = 0;
 		} else if (alignmentHorizontal == 2) {
 			position = screenWidth - bannerWidth;

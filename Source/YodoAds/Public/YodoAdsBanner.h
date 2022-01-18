@@ -45,6 +45,9 @@ public:
 	void SetSize(EYABannerSize Size);
 
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	void SetPlacement(const FString& PlacementId);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	void LoadAd();
 
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
@@ -88,4 +91,7 @@ public:
 	FYAVoidDelegate OnBannerAdOpened;
 	FYAErrorDelegate OnBannerAdFailedToOpen;
 	FYAVoidDelegate OnBannerAdClosed;
+
+private:
+	EYABannerSize BannerSize = EYABannerSize::Banner;
 };

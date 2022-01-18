@@ -11,9 +11,25 @@ void UYodoAdsBanner::SetSize(EYABannerSize Size)
 	if (!IsNativeObjectValid())
 		return;
 
+	BannerSize = Size;
+
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "setBannerSize",
 		"(Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;I)V", JavaObject, (int) Size);
+#elif PLATFORM_IOS
+#endif
+}
+
+void UYodoAdsBanner::SetPlacement(const FString& PlacementId)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::SetPlacement"));
+
+	if (!IsNativeObjectValid())
+		return;
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallVoidMethod(JavaObject, "setAdPlacement",
+		"(Ljava/lang/String;)V", JavaObject, YAJavaConvertor::GetJavaString(PlacementId));
 #elif PLATFORM_IOS
 #endif
 }
@@ -41,8 +57,8 @@ void UYodoAdsBanner::Show(EYABannerHorizontalPosition HorizontalPosition, EYABan
 
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "showBannerAd",
-		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;IIII)V", FJavaWrapper::GameActivityThis, JavaObject, 
-		(int) HorizontalPosition, (int) VerticalPosition, (int) Offset.X, (int) Offset.Y);
+		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;IIIII)V", FJavaWrapper::GameActivityThis, JavaObject, 
+		(int) BannerSize, (int) HorizontalPosition, (int) VerticalPosition, (int) Offset.X, (int) Offset.Y);
 #elif PLATFORM_IOS
 #endif
 }
