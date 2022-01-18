@@ -18,6 +18,15 @@
 FYAVoidDelegate UYodoAdsLibrary::OnInitializeSuccess;
 FYAErrorDelegate UYodoAdsLibrary::OnInitializeError;
 
+FYAVoidDelegate UYodoAdsLibrary::OnRewardedAdOpened;
+FYAErrorDelegate UYodoAdsLibrary::OnRewardedAdError;
+FYAVoidDelegate UYodoAdsLibrary::OnRewardedAdClosed;
+FYAVoidDelegate UYodoAdsLibrary::OnRewardedAdRewardEarned;
+
+FYAVoidDelegate UYodoAdsLibrary::OnInterstitialAdOpened;
+FYAErrorDelegate UYodoAdsLibrary::OnInterstitialAdError;
+FYAVoidDelegate UYodoAdsLibrary::OnInterstitialAdClosed;
+
 const ANSICHAR* UYodoAdsLibrary::YodoAdsClassName = "com/ninevastudios/yodoads/YodoAds";
 
 void UYodoAdsLibrary::SetConfig(const FYodoAdsConfig& Config)
@@ -120,6 +129,83 @@ bool UYodoAdsLibrary::IsCCPADontSell()
 	return Result;
 }
 
+void UYodoAdsLibrary::SetRewardedAdListener(const FYAVoidDelegate& OnOpened, const FYAErrorDelegate& OnError, const FYAVoidDelegate& OnClosed, const FYAVoidDelegate& OnRewardEarned)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetRewardedAdListener"));
+
+	OnRewardedAdOpened = OnOpened;
+	OnRewardedAdError = OnError;
+	OnRewardedAdClosed = OnClosed;
+	OnRewardedAdRewardEarned = OnRewardEarned;
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setRewardListener", "()V");
+#elif PLATFORM_IOS
+#endif
+}
+
+bool UYodoAdsLibrary::IsRewardedAdLoaded()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::IsRewardedAdLoaded"));
+
+	bool Result = false;
+
+#if PLATFORM_ANDROID
+	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isRewardedAdLoaded", "()Z");
+#elif PLATFORM_IOS
+#endif
+
+	return Result;
+}
+
+void UYodoAdsLibrary::ShowRewardedAd(const FString& Placement)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::ShowRewardedAd"));
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showRewardedAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
+#elif PLATFORM_IOS
+#endif
+}
+
+void UYodoAdsLibrary::SetInterstitialAdListener(const FYAVoidDelegate& OnOpened, const FYAErrorDelegate& OnError, const FYAVoidDelegate& OnClosed)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetInterstitialAdListener"));
+
+	OnInterstitialAdOpened = OnOpened;
+	OnInterstitialAdError = OnError;
+	OnInterstitialAdClosed = OnClosed;
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setInterstitialListener", "()V");
+#elif PLATFORM_IOS
+#endif
+}
+
+bool UYodoAdsLibrary::IsInterstitialAdLoaded()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::IsInterstitialAdLoaded"));
+
+	bool Result = false;
+
+#if PLATFORM_ANDROID
+	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isInterstitialAdLoaded", "()Z");
+#elif PLATFORM_IOS
+#endif
+
+	return Result;
+}
+
+void UYodoAdsLibrary::ShowInterstitialAd(const FString& Placement)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::ShowInterstitialAd"));
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showInterstitialAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
+#elif PLATFORM_IOS
+#endif
+}
+
 UYodoAdsBanner* UYodoAdsLibrary::MakeBannerAd()
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::MakeBannerAd"));
@@ -150,6 +236,59 @@ JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInitError(JNIEnv* env, 
 
 	AsyncTask(ENamedThreads::GameThread, [=]() {
 		UYodoAdsLibrary::OnInitializeError.ExecuteIfBound(Error);
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnRewardedAdOpened(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnRewardedAdOpened.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnRewardedAdError(JNIEnv* env, jclass clazz, jstring error)
+{
+	FString Error = YAJavaConvertor::FromJavaString(error);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnRewardedAdError.ExecuteIfBound(Error);
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnRewardedAdClosed(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnRewardedAdClosed.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnRewardedAdRewardEarned(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnRewardedAdRewardEarned.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInterstitialAdOpened(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnInterstitialAdOpened.ExecuteIfBound();
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInterstitialAdError(JNIEnv* env, jclass clazz, jstring error)
+{
+	FString Error = YAJavaConvertor::FromJavaString(error);
+
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnInterstitialAdError.ExecuteIfBound(Error);
+	});
+}
+
+JNI_METHOD void Java_com_ninevastudios_yodoads_YodoAds_OnInterstitialAdClosed(JNIEnv* env, jclass clazz)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		UYodoAdsLibrary::OnInterstitialAdClosed.ExecuteIfBound();
 	});
 }
 #endif

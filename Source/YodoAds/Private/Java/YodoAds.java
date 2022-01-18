@@ -12,6 +12,8 @@ import com.yodo1.mas.banner.Yodo1MasBannerAdListener;
 import com.yodo1.mas.banner.Yodo1MasBannerAdSize;
 import com.yodo1.mas.banner.Yodo1MasBannerAdView;
 import com.yodo1.mas.error.Yodo1MasError;
+import com.yodo1.mas.event.Yodo1MasAdEvent;
+import com.yodo1.mas.helper.Yodo1MasHelper;
 import com.yodo1.mas.helper.model.Yodo1MasAdBuildConfig;
 import com.yodo1.mas.utils.Yodo1MasBannerUtil;
 
@@ -22,6 +24,7 @@ public class YodoAds {
 
 	public static native void OnInitError(String error);
 
+
 	public static native void OnBannerAdLoaded(long pointer);
 
 	public static native void OnBannerAdFailedToLoad(long pointer, String error);
@@ -31,6 +34,22 @@ public class YodoAds {
 	public static native void OnBannerAdFailedToOpen(long pointer, String error);
 
 	public static native void OnBannerAdClosed(long pointer);
+
+
+	public static native void OnRewardedAdOpened();
+
+	public static native void OnRewardedAdError(String error);
+
+	public static native void OnRewardedAdClosed();
+
+	public static native void OnRewardedAdRewardEarned();
+
+
+	public static native void OnInterstitialAdOpened();
+
+	public static native void OnInterstitialAdError(String error);
+
+	public static native void OnInterstitialAdClosed();
 
 	@Keep
 	public static void setConfig(boolean enableUserPrivacyDialog, boolean enableAdaptiveBanner,
@@ -154,6 +173,88 @@ public class YodoAds {
 		});
 	}
 
+	@Keep
+	public static void destroyBannerAd(Activity activity, final Yodo1MasBannerAdView view) {
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				view.destroy();
+			}
+		});
+	}
+
+	@Keep
+	public static void setRewardListener() {
+		Yodo1MasHelper.getInstance().setRewardListener(new Yodo1Mas.RewardListener() {
+			@Override
+			public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+				OnRewardedAdOpened();
+			}
+
+			@Override
+			public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+				OnRewardedAdError(getErrorString(error));
+			}
+
+			@Override
+			public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+				OnRewardedAdClosed();
+			}
+
+			@Override
+			public void onAdvertRewardEarned(@NonNull Yodo1MasAdEvent event) {
+				OnRewardedAdRewardEarned();
+			}
+		});
+	}
+
+	@Keep
+	public static void setInterstitialListener() {
+		Yodo1MasHelper.getInstance().setInterstitialListener(new Yodo1Mas.InterstitialListener() {
+			@Override
+			public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+				OnInterstitialAdOpened();
+			}
+
+			@Override
+			public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+				OnInterstitialAdError(getErrorString(error));
+			}
+
+			@Override
+			public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+				OnInterstitialAdClosed();
+			}
+		});
+	}
+
+	@Keep
+	public static boolean isRewardedAdLoaded() {
+		return Yodo1Mas.getInstance().isRewardedAdLoaded();
+	}
+
+	@Keep
+	public static void showRewardedAd(Activity activity, String placement) {
+		if (placement.isEmpty()) {
+			Yodo1Mas.getInstance().showRewardedAd(activity);
+		} else {
+			Yodo1Mas.getInstance().showRewardedAd(activity, placement);
+		}
+	}
+
+	@Keep
+	public static boolean isInterstitialAdLoaded() {
+		return Yodo1Mas.getInstance().isInterstitialAdLoaded();
+	}
+
+	@Keep
+	public static void showInterstitialAd(Activity activity, String placement) {
+		if (placement.isEmpty()) {
+			Yodo1Mas.getInstance().showInterstitialAd(activity);
+		} else {
+			Yodo1Mas.getInstance().showInterstitialAd(activity, placement);
+		}
+	}
+
 	private static void setBannerPosition(Activity activity, Yodo1MasBannerAdView view, ViewGroup.LayoutParams params, int alignmentHorizontal,
 	                                      int alignmentVertical, int offsetX, int offsetY) {
 		DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
@@ -194,14 +295,6 @@ public class YodoAds {
 		}
 
 		return position + offsetY;
-	}
-
-	public static void destroyBannerAd(Activity activity, final Yodo1MasBannerAdView view) {
-		activity.runOnUiThread(new Runnable() {
-			public void run() {
-				view.destroy();
-			}
-		});
 	}
 
 	private static String getErrorString(Yodo1MasError error) {

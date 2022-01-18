@@ -42,29 +42,56 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
 	static void Initialize(const FYAVoidDelegate& OnSuccess, const FYAErrorDelegate& OnError);
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static void SetGDPR(bool UserConsent);
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static bool IsGDPRUserConsent();
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static void SetCOPPA(bool AgeRestricted);
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static bool IsCOPPAAgeRestricted();
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static void SetCCPA(bool DontSell);
 
-	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
 	static bool IsCCPADontSell();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnOpened,OnError,OnClosed,OnRewardEarned"))
+	static void SetRewardedAdListener(const FYAVoidDelegate& OnOpened, const FYAErrorDelegate& OnError, const FYAVoidDelegate& OnClosed, const FYAVoidDelegate& OnRewardEarned);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	static bool IsRewardedAdLoaded();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	static void ShowRewardedAd(const FString& Placement = "");
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnOpened,OnError,OnClosed"))
+	static void SetInterstitialAdListener(const FYAVoidDelegate& OnOpened, const FYAErrorDelegate& OnError, const FYAVoidDelegate& OnClosed);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	static bool IsInterstitialAdLoaded();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads")
+	static void ShowInterstitialAd(const FString& Placement = "");
 
 	UFUNCTION(BlueprintPure, Category = "Yodo Ads")
 	static UYodoAdsBanner* MakeBannerAd();
 
 	static FYAVoidDelegate OnInitializeSuccess;
 	static FYAErrorDelegate OnInitializeError;
+
+	static FYAVoidDelegate OnRewardedAdOpened;
+	static FYAErrorDelegate OnRewardedAdError;
+	static FYAVoidDelegate OnRewardedAdClosed;
+	static FYAVoidDelegate OnRewardedAdRewardEarned;
+
+	static FYAVoidDelegate OnInterstitialAdOpened;
+	static FYAErrorDelegate OnInterstitialAdError;
+	static FYAVoidDelegate OnInterstitialAdClosed;
 
 	static const ANSICHAR* YodoAdsClassName;
 };
