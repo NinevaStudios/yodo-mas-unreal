@@ -32,6 +32,7 @@ public class YodoAds {
 
 	public static native void OnBannerAdClosed(long pointer);
 
+	@Keep
 	public static void setConfig(boolean enableUserPrivacyDialog, boolean enableAdaptiveBanner,
 	                             String privacyPolicyUrl, String userAgreementUrl) {
 		Yodo1MasAdBuildConfig.Builder builder = new Yodo1MasAdBuildConfig.Builder()
@@ -46,6 +47,7 @@ public class YodoAds {
 		Yodo1Mas.getInstance().setAdBuildConfig(builder.build());
 	}
 
+	@Keep
 	public static void initialize(final Activity activity, final String appKey) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
@@ -64,38 +66,47 @@ public class YodoAds {
 		});
 	}
 
+	@Keep
 	public static void setGDPR(boolean userConsent) {
 		Yodo1Mas.getInstance().setGDPR(userConsent);
 	}
 
+	@Keep
 	public static boolean isGDPRUserConsent() {
 		return Yodo1Mas.getInstance().isGDPRUserConsent();
 	}
 
+	@Keep
 	public static void setCOPPA(boolean ageRestricted) {
 		Yodo1Mas.getInstance().setCOPPA(ageRestricted);
 	}
 
+	@Keep
 	public static boolean isCOPPAAgeRestricted() {
 		return Yodo1Mas.getInstance().isCOPPAAgeRestricted();
 	}
 
+	@Keep
 	public static void setCCPA(boolean doNotSell) {
 		Yodo1Mas.getInstance().setCCPA(doNotSell);
 	}
 
+	@Keep
 	public static boolean isCCPADoNotSell() {
 		return Yodo1Mas.getInstance().isCCPADoNotSell();
 	}
 
+	@Keep
 	public static Yodo1MasBannerAdView createBannerView(Activity activity) {
 		return new Yodo1MasBannerAdView(activity);
 	}
 
+	@Keep
 	public static void setBannerSize(Yodo1MasBannerAdView view, int size) {
 		view.setAdSize(parseSize(size));
 	}
 
+	@Keep
 	public static void setBannerCallbacksAndLoad(Yodo1MasBannerAdView view, final long pointer) {
 		view.setAdListener(new Yodo1MasBannerAdListener() {
 			@Override
@@ -127,6 +138,7 @@ public class YodoAds {
 		view.loadAd();
 	}
 
+	@Keep
 	public static void showBannerAd(final Activity activity, final Yodo1MasBannerAdView view, final int bannerType, final int alignmentHorizontal,
 	                                final int alignmentVertical, final int offsetX, final int offsetY) {
 		activity.runOnUiThread(new Runnable() {
