@@ -42,6 +42,24 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
 	static void Initialize(const FYAVoidDelegate& OnSuccess, const FYAErrorDelegate& OnError);
 
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static void SetGDPR(bool UserConsent);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static bool IsGDPRUserConsent();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static void SetCOPPA(bool AgeRestricted);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static bool IsCOPPAAgeRestricted();
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static void SetCCPA(bool DontSell);
+
+	UFUNCTION(BlueprintCallable, Category = "Yodo Ads", meta = (AutoCreateRefTerm = "OnSuccess,OnError"))
+	static bool IsCCPADontSell();
+
 	UFUNCTION(BlueprintPure, Category = "Yodo Ads")
 	static UYodoAdsBanner* MakeBannerAd();
 

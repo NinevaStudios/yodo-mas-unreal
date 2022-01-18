@@ -48,6 +48,78 @@ void UYodoAdsLibrary::Initialize(const FYAVoidDelegate& OnSuccess, const FYAErro
 #endif
 }
 
+void UYodoAdsLibrary::SetGDPR(bool UserConsent)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetGDPR"));
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setGDPR", "(Z)V", UserConsent);
+#elif PLATFORM_IOS
+#endif
+}
+
+bool UYodoAdsLibrary::IsGDPRUserConsent()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::IsGDPRUserConsent"));
+
+	bool Result = false;
+
+#if PLATFORM_ANDROID
+	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isGDPRUserConsent", "()Z");
+#elif PLATFORM_IOS
+#endif
+
+	return Result;
+}
+
+void UYodoAdsLibrary::SetCOPPA(bool AgeRestricted)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetCOPPA"));
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setCOPPA", "(Z)V", AgeRestricted);
+#elif PLATFORM_IOS
+#endif
+}
+
+bool UYodoAdsLibrary::IsCOPPAAgeRestricted()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::IsCOPPAAgeRestricted"));
+
+	bool Result = false;
+
+#if PLATFORM_ANDROID
+	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isCOPPAAgeRestricted", "()Z");
+#elif PLATFORM_IOS
+#endif
+
+	return Result;
+}
+
+void UYodoAdsLibrary::SetCCPA(bool DontSell)
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetCCPA"));
+
+#if PLATFORM_ANDROID
+	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setCCPA", "(Z)V", DontSell);
+#elif PLATFORM_IOS
+#endif
+}
+
+bool UYodoAdsLibrary::IsCCPADontSell()
+{
+	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::IsCCPADoNotSell"));
+
+	bool Result = false;
+
+#if PLATFORM_ANDROID
+	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isCCPADoNotSell", "()Z");
+#elif PLATFORM_IOS
+#endif
+
+	return Result;
+}
+
 UYodoAdsBanner* UYodoAdsLibrary::MakeBannerAd()
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::MakeBannerAd"));

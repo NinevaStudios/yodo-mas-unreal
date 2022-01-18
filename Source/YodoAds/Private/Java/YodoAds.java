@@ -64,6 +64,30 @@ public class YodoAds {
 		});
 	}
 
+	public static void setGDPR(boolean userConsent) {
+		Yodo1Mas.getInstance().setGDPR(userConsent);
+	}
+
+	public static boolean isGDPRUserConsent() {
+		return Yodo1Mas.getInstance().isGDPRUserConsent();
+	}
+
+	public static void setCOPPA(boolean ageRestricted) {
+		Yodo1Mas.getInstance().setCOPPA(ageRestricted);
+	}
+
+	public static boolean isCOPPAAgeRestricted() {
+		return Yodo1Mas.getInstance().isCOPPAAgeRestricted();
+	}
+
+	public static void setCCPA(boolean doNotSell) {
+		Yodo1Mas.getInstance().setCCPA(doNotSell);
+	}
+
+	public static boolean isCCPADoNotSell() {
+		return Yodo1Mas.getInstance().isCCPADoNotSell();
+	}
+
 	public static Yodo1MasBannerAdView createBannerView(Activity activity) {
 		return new Yodo1MasBannerAdView(activity);
 	}
