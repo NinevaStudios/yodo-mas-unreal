@@ -1,11 +1,8 @@
 package com.ninevastudios.yodoads;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
+import android.util.DisplayMetrics;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -110,8 +107,11 @@ public class YodoAds {
 	                                final int alignmentVertical, final int offsetX, final int offsetY) {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				view.setHorizontalGravity(parseHorizontalGravity(alignmentHorizontal));
-				view.setVerticalGravity(parseVerticalGravity(alignmentVertical));
+
+				ViewGroup.LayoutParams params = Yodo1MasBannerUtil.getLayoutParamsByBannerSize(activity, Yodo1MasBannerAdSize.Banner, null);
+				view.setLayoutParams(params);
+
+				setBannerPosition(activity, view, params, alignmentHorizontal, alignmentVertical, offsetX, offsetY);
 
 				final ViewGroup viewGroup = activity.findViewById(android.R.id.content);
 				viewGroup.addView(view);
@@ -119,22 +119,46 @@ public class YodoAds {
 		});
 	}
 
-	private static int parseHorizontalGravity(int alignmentHorizontal) {
-		if (alignmentHorizontal == 0)
-			return Gravity.START;
-		if (alignmentHorizontal == 2)
-			return Gravity.END;
+	private static void setBannerPosition(Activity activity, Yodo1MasBannerAdView view, ViewGroup.LayoutParams params, int alignmentHorizontal,
+	                                      int alignmentVertical, int offsetX, int offsetY) {
+		DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+		int screenWidth = displayMetrics.widthPixels;
+		int screenHeight = displayMetrics.heightPixels;
 
-		return Gravity.CENTER_HORIZONTAL;
+		int bannerWidth = params.width;
+		int bannerHeight = params.height;
+
+		int positionX = calculatePositionX(alignmentHorizontal, screenWidth, bannerWidth, offsetX);
+		int positionY = calculatePositionY(alignmentVertical, screenHeight, bannerHeight, offsetY);
+
+		view.setX(positionX);
+		view.setY(positionY);
 	}
 
-	private static int parseVerticalGravity(int alignmentVertical) {
-		if (alignmentVertical == 0)
-			return Gravity.TOP;
-		if (alignmentVertical == 2)
-			return Gravity.BOTTOM;
+	private static int calculatePositionX(int alignmentHorizontal, int screenWidth, int bannerWidth, int offsetX) {
+		int position;
+		if (alignmentHorizontal == 0) {
+			position = 0;
+		} else if (alignmentHorizontal == 2) {
+			position = screenWidth - bannerWidth;
+		} else {
+			position = (screenWidth - bannerWidth) / 2;
+		}
 
-		return Gravity.CENTER_VERTICAL;
+		return position + offsetX;
+	}
+
+	private static int calculatePositionY(int alignmentVertical, int screenHeight, int bannerHeight, int offsetY) {
+		int position;
+		if (alignmentVertical == 0) {
+			position = 0;
+		} else if (alignmentVertical == 2) {
+			position = screenHeight - bannerHeight;
+		} else {
+			position = (screenHeight - bannerHeight) / 2;
+		}
+
+		return position + offsetY;
 	}
 
 	public static void destroyBannerAd(Activity activity, final Yodo1MasBannerAdView view) {

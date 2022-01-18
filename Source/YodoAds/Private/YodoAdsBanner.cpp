@@ -41,7 +41,8 @@ void UYodoAdsBanner::Show(EYABannerHorizontalPosition HorizontalPosition, EYABan
 
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "showBannerAd",
-		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;IIII)V", FJavaWrapper::GameActivityThis, JavaObject, (int) HorizontalPosition, (int) VerticalPosition, Offset.X, Offset.Y);
+		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;IIII)V", FJavaWrapper::GameActivityThis, JavaObject, 
+		(int) HorizontalPosition, (int) VerticalPosition, (int) Offset.X, (int) Offset.Y);
 #elif PLATFORM_IOS
 #endif
 }
