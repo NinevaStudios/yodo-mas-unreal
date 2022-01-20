@@ -28,4 +28,7 @@ public:
 
 	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "iOS Admob App ID"))
 	FString iOSAdmobAppId;
+	
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "User Tracking Usage Description"))
+	FString UserTrackingUsageDescription;
 };
