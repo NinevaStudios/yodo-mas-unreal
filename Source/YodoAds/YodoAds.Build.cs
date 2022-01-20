@@ -169,7 +169,7 @@ public class YodoAds : ModuleRules
 
 			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/IOS"));
 			
-			PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "../ThirdParty", Target.Platform.ToString(), "Headers"));
+			PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "../ThirdParty", "Headers"));
 
 			PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 

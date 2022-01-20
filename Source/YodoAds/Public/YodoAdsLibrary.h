@@ -4,6 +4,10 @@
 
 #include "Kismet/BlueprintFunctionLibrary.h"
 
+#if PLATFORM_IOS
+#include "IOS/YAAdDelegate.h"
+#endif
+
 #include "YodoAdsLibrary.generated.h"
 
 USTRUCT(BlueprintType)
@@ -94,4 +98,9 @@ public:
 	static FYAVoidDelegate OnInterstitialAdClosed;
 
 	static const ANSICHAR* YodoAdsClassName;
+	
+#if PLATFORM_IOS
+	static YAInterstitialAdDelegate* InterstitialAdDelegate;
+	static YARewardedAdDelegate* RewardedAdDelegate;
+#endif
 };

@@ -13,6 +13,9 @@
 #include "Android/YAJavaConvertor.h"
 #elif PLATFORM_IOS
 #import <Yodo1MasCore/Yodo1Mas.h>
+
+#include "IOS/YAAdDelegate.h"
+#include "IOS/YAUtils.h"
 #endif
 
 FYAVoidDelegate UYodoAdsLibrary::OnInitializeSuccess;
@@ -30,10 +33,8 @@ FYAVoidDelegate UYodoAdsLibrary::OnInterstitialAdClosed;
 const ANSICHAR* UYodoAdsLibrary::YodoAdsClassName = "com/ninevastudios/yodoads/YodoAds";
 
 #if PLATFORM_IOS
-FString ParseIosError(Yodo1MasError* error)
-{
-	return [NSString stringWithFormat:@"%i - %@", error.code, [error localizedDescription]];
-}
+YAInterstitialAdDelegate* UYodoAdsLibrary::InterstitialAdDelegate;
+YARewardedAdDelegate* UYodoAdsLibrary::RewardedAdDelegate;
 #endif
 
 void UYodoAdsLibrary::SetConfig(const FYodoAdsConfig& Config)
@@ -74,7 +75,7 @@ void UYodoAdsLibrary::Initialize(const FYAVoidDelegate& OnSuccess, const FYAErro
 			UYodoAdsLibrary::OnInitializeSuccess.ExecuteIfBound();
 		});
 	} fail:^(Yodo1MasError* error) {
-		FString Error = ParseIosError(error);
+		FString Error = YAUtils::ParseIosError(error);
 		
 		AsyncTask(ENamedThreads::GameThread, [=]() {
 			UYodoAdsLibrary::OnInitializeError.ExecuteIfBound(Error);
@@ -173,6 +174,31 @@ void UYodoAdsLibrary::SetRewardedAdListener(const FYAVoidDelegate& OnOpened, con
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setRewardListener", "()V");
 #elif PLATFORM_IOS
+	RewardedAdDelegate = [YARewardedAdDelegate new];
+	RewardedAdDelegate.onAdOpened = ^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnRewardedAdOpened.ExecuteIfBound();
+		});
+	};
+	RewardedAdDelegate.onAdError = ^(Yodo1MasError* error) {
+		FString Error = YAUtils::ParseIosError(error);
+		
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnRewardedAdError.ExecuteIfBound(Error);
+		});
+	};
+	RewardedAdDelegate.onAdClosed = ^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnRewardedAdClosed.ExecuteIfBound();
+		});
+	};
+	RewardedAdDelegate.onReward = ^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnRewardedAdRewardEarned.ExecuteIfBound();
+		});
+	};
+	
+	[Yodo1Mas sharedInstance].rewardAdDelegate = RewardedAdDelegate;
 #endif
 }
 
@@ -213,6 +239,26 @@ void UYodoAdsLibrary::SetInterstitialAdListener(const FYAVoidDelegate& OnOpened,
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setInterstitialListener", "()V");
 #elif PLATFORM_IOS
+	InterstitialAdDelegate = [YAInterstitialAdDelegate new];
+	InterstitialAdDelegate.onAdOpened = ^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnInterstitialAdOpened.ExecuteIfBound();
+		});
+	};
+	RewardedAdDelegate.onAdError = ^(Yodo1MasError* error) {
+		FString Error = YAUtils::ParseIosError(error);
+		
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnInterstitialAdError.ExecuteIfBound(Error);
+		});
+	};
+	InterstitialAdDelegate.onAdClosed = ^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnInterstitialAdClosed.ExecuteIfBound();
+		});
+	};
+	
+	[Yodo1Mas sharedInstance].interstitialAdDelegate = InterstitialAdDelegate;
 #endif
 }
 
@@ -253,6 +299,8 @@ UYodoAdsBanner* UYodoAdsLibrary::MakeBannerAd()
 		"(Landroid/app/Activity;)Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;", FJavaWrapper::GameActivityThis);
 	Result->Init(javaBanner);
 #elif PLATFORM_IOS
+	Yodo1MasBannerAdView* Banner = [[Yodo1MasBannerAdView alloc] init];
+	Result->Init(Banner);
 #endif
 
 	return Result;
