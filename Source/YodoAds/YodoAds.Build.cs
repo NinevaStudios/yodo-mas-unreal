@@ -99,19 +99,20 @@ public class YodoAds : ModuleRules
 					"CoreVideo",
 					"MediaPlayer",
 					"LocalAuthentication",
-					"VideoToolbox",
-					"c++",
-					"c++abi",
-					"sqlite3",
-					"sqlite3.0",
-					"xml2",
-					"xml2.2",
-					"bz2",
-					"resolv",
-					"iconv",
-					"z"
+					"VideoToolbox"
 				}
 			);
+			
+			PublicSystemLibraries.Add("c++");
+			PublicSystemLibraries.Add("c++abi");
+			PublicSystemLibraries.Add("sqlite3");
+			PublicSystemLibraries.Add("sqlite3.0");
+			PublicSystemLibraries.Add("xml2");
+			PublicSystemLibraries.Add("xml2.2");
+			PublicSystemLibraries.Add("bz2");
+			PublicSystemLibraries.Add("resolv");
+			PublicSystemLibraries.Add("iconv");
+			PublicSystemLibraries.Add("z");
 			
 			PublicAdditionalFrameworks.Add (new Framework ("AFNetworking", "../ThirdParty/AFNetworking.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("AdColony", "../ThirdParty/AdColony.embeddedframework.zip"));
@@ -161,7 +162,7 @@ public class YodoAds : ModuleRules
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1SaAnalyticsSDK", "../ThirdParty/Yodo1SaAnalyticsSDK.embeddedframework.zip", "Yodo1SensorsAnalyticsSDK.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("nanopb", "../ThirdParty/nanopb.embeddedframework.zip"));
 			
-			string ThirdPartyPath = Path.Combine(ModuleDirectory, "../ThirdParty", Target.Platform.ToString());
+			string ThirdPartyPath = Path.Combine(ModuleDirectory, "../ThirdParty");
 			string LibrariesPath = Path.Combine(ThirdPartyPath, "Libraries");
 
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libGDTMobSDK.a"));
