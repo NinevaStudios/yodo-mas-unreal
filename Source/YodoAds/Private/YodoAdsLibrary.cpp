@@ -12,7 +12,7 @@
 #include "Android/YAMethodCallUtils.h"
 #include "Android/YAJavaConvertor.h"
 #elif PLATFORM_IOS
-
+#import <Yodo1MasCore/Yodo1Mas.h>
 #endif
 
 FYAVoidDelegate UYodoAdsLibrary::OnInitializeSuccess;
@@ -29,6 +29,13 @@ FYAVoidDelegate UYodoAdsLibrary::OnInterstitialAdClosed;
 
 const ANSICHAR* UYodoAdsLibrary::YodoAdsClassName = "com/ninevastudios/yodoads/YodoAds";
 
+#if PLATFORM_IOS
+FString ParseIosError(Yodo1MasError* error)
+{
+	return [NSString stringWithFormat:@"%i - %@", error.code, [error localizedDescription]];
+}
+#endif
+
 void UYodoAdsLibrary::SetConfig(const FYodoAdsConfig& Config)
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsLibrary::SetConfig"));
@@ -38,6 +45,14 @@ void UYodoAdsLibrary::SetConfig(const FYodoAdsConfig& Config)
 		"(ZZLjava/lang/String;Ljava/lang/String;)V", Config.EnableUserPrivacyDialog, Config.EnableAdaptiveBanner, 
 		YAJavaConvertor::GetJavaString(Config.PrivacyPolicyUrl), YAJavaConvertor::GetJavaString(Config.UserAgreementUrl));
 #elif PLATFORM_IOS
+	Yodo1MasAdBuildConfig *config = [Yodo1MasAdBuildConfig instance];
+	
+	config.enableUserPrivacyDialog = Config.EnableUserPrivacyDialog;
+	config.enableAdaptiveBanner = Config.EnableAdaptiveBanner;
+	config.privacyPolicyUrl = Config.PrivacyPolicyUrl.GetNSString();
+	config.userAgreementUrl = Config.UserAgreementUrl.GetNSString();
+	
+	[[Yodo1Mas sharedInstance] setAdBuildConfig:config];
 #endif
 }
 
@@ -54,6 +69,17 @@ void UYodoAdsLibrary::Initialize(const FYAVoidDelegate& OnSuccess, const FYAErro
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "initialize",
 		"(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(AppKey));
 #elif PLATFORM_IOS
+	[[Yodo1Mas sharedInstance] initWithSuccessful:^() {
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			UYodoAdsLibrary::OnInitializeSuccess.ExecuteIfBound();
+		});
+	} fail:^(Yodo1MasError* error) {
+		FString Error = ParseIosError(error);
+		
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			UYodoAdsLibrary::OnInitializeError.ExecuteIfBound(Error);
+		});
+	}];
 #endif
 }
 
@@ -64,6 +90,7 @@ void UYodoAdsLibrary::SetGDPR(bool UserConsent)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setGDPR", "(Z)V", UserConsent);
 #elif PLATFORM_IOS
+	[Yodo1Mas sharedInstance].isGDPRUserConsent = UserConsent;
 #endif
 }
 
@@ -76,6 +103,7 @@ bool UYodoAdsLibrary::IsGDPRUserConsent()
 #if PLATFORM_ANDROID
 	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isGDPRUserConsent", "()Z");
 #elif PLATFORM_IOS
+	Result = [Yodo1Mas sharedInstance].isGDPRUserConsent;
 #endif
 
 	return Result;
@@ -88,6 +116,7 @@ void UYodoAdsLibrary::SetCOPPA(bool AgeRestricted)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setCOPPA", "(Z)V", AgeRestricted);
 #elif PLATFORM_IOS
+	[Yodo1Mas sharedInstance].isCOPPAAgeRestricted = AgeRestricted;
 #endif
 }
 
@@ -100,6 +129,7 @@ bool UYodoAdsLibrary::IsCOPPAAgeRestricted()
 #if PLATFORM_ANDROID
 	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isCOPPAAgeRestricted", "()Z");
 #elif PLATFORM_IOS
+	Result = [Yodo1Mas sharedInstance].isCOPPAAgeRestricted;
 #endif
 
 	return Result;
@@ -112,6 +142,7 @@ void UYodoAdsLibrary::SetCCPA(bool DontSell)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "setCCPA", "(Z)V", DontSell);
 #elif PLATFORM_IOS
+	[Yodo1Mas sharedInstance].isCCPADoNotSell = DontSell;
 #endif
 }
 
@@ -124,6 +155,7 @@ bool UYodoAdsLibrary::IsCCPADontSell()
 #if PLATFORM_ANDROID
 	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isCCPADoNotSell", "()Z");
 #elif PLATFORM_IOS
+	Result = [Yodo1Mas sharedInstance].isCCPADoNotSell;
 #endif
 
 	return Result;
@@ -153,6 +185,7 @@ bool UYodoAdsLibrary::IsRewardedAdLoaded()
 #if PLATFORM_ANDROID
 	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isRewardedAdLoaded", "()Z");
 #elif PLATFORM_IOS
+	Result = [[Yodo1Mas sharedInstance] isRewardAdLoaded];
 #endif
 
 	return Result;
@@ -165,6 +198,7 @@ void UYodoAdsLibrary::ShowRewardedAd(const FString& Placement)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showRewardedAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
 #elif PLATFORM_IOS
+	[[Yodo1Mas sharedInstance] showRewardAd];
 #endif
 }
 
@@ -191,6 +225,7 @@ bool UYodoAdsLibrary::IsInterstitialAdLoaded()
 #if PLATFORM_ANDROID
 	Result = YAMethodCallUtils::CallStaticBoolMethod(YodoAdsClassName, "isInterstitialAdLoaded", "()Z");
 #elif PLATFORM_IOS
+	Result = [[Yodo1Mas sharedInstance] isInterstitialAdLoaded];
 #endif
 
 	return Result;
@@ -203,6 +238,7 @@ void UYodoAdsLibrary::ShowInterstitialAd(const FString& Placement)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showInterstitialAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
 #elif PLATFORM_IOS
+	[[Yodo1Mas sharedInstance] showInterstitialAd];
 #endif
 }
 
