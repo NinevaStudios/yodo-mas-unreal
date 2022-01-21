@@ -88,7 +88,9 @@ void UYodoAdsBanner::LoadAd()
 	
 	((Yodo1MasBannerAdView*) IOSObject).adDelegate = BannerAdDelegate;
 	
-	[((Yodo1MasBannerAdView*) IOSObject) loadAd];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[((Yodo1MasBannerAdView*) IOSObject) loadAd];
+	});
 #endif
 }
 
@@ -155,7 +157,9 @@ void UYodoAdsBanner::Show(EYABannerHorizontalPosition HorizontalPosition, EYABan
 	
 	setBannerPosition(gameView, banner, HorizontalPosition, VerticalPosition, (int) Offset.X, (int) Offset.Y, BannerSize);
 	
-	[gameView addSubview:banner];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[gameView addSubview:banner];
+	});
 #endif
 }
 
@@ -170,7 +174,9 @@ void UYodoAdsBanner::Destroy()
 	YAMethodCallUtils::CallStaticVoidMethod(UYodoAdsLibrary::YodoAdsClassName, "destroyBannerAd",
 		"(Landroid/app/Activity;Lcom/yodo1/mas/banner/Yodo1MasBannerAdView;)V", FJavaWrapper::GameActivityThis, JavaObject);
 #elif PLATFORM_IOS
-	[((Yodo1MasBannerAdView*) IOSObject) destroy];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[((Yodo1MasBannerAdView*) IOSObject) destroy];
+	});
 #endif
 }
 
