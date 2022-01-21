@@ -64,13 +64,15 @@ void UYodoAdsLibrary::Initialize(const FYAVoidDelegate& OnSuccess, const FYAErro
 	OnInitializeSuccess = OnSuccess;
 	OnInitializeError = OnError;
 
-	FString AppKey = FYodoAdsModule::Get().GetSettings()->AndroidAppKey;
-
 #if PLATFORM_ANDROID
+	FString AppKey = FYodoAdsModule::Get().GetSettings()->AndroidAppKey;
+	
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "initialize",
 		"(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(AppKey));
 #elif PLATFORM_IOS
-	[[Yodo1Mas sharedInstance] initWithSuccessful:^() {
+	FString AppKey = FYodoAdsModule::Get().GetSettings()->iOSAppKey;
+	
+	[[Yodo1Mas sharedInstance] initWithAppKey:AppKey.GetNSString() successful:^() {
 		AsyncTask(ENamedThreads::GameThread, [=]() {
 			UYodoAdsLibrary::OnInitializeSuccess.ExecuteIfBound();
 		});
