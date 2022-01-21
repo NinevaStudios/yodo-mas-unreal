@@ -114,16 +114,15 @@ public class YodoAds : ModuleRules
 			PublicSystemLibraries.Add("iconv");
 			PublicSystemLibraries.Add("z");
 			
-			PublicAdditionalFrameworks.Add (new Framework ("AFNetworking", "../ThirdParty/AFNetworking.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("AFNetworking", "../ThirdParty/AFNetworking.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("AdColony", "../ThirdParty/AdColony.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("AppLovinQualityService", "../ThirdParty/AppLovinQualityService.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("AppLovinSDK", "../ThirdParty/AppLovinSDK.embeddedframework.zip", "AppLovinSDKResources.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUAdSDK", "../ThirdParty/BUAdSDK.embeddedframework.zip", "BUAdSDK.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUCNAuxiliary", "../ThirdParty/BUCNAuxiliary.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUFoundation", "../ThirdParty/BUFoundation.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUVAAuxiliary", "../ThirdParty/BUVAAuxiliary.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("FBAudienceNetwork", "../ThirdParty/FBAudienceNetwork.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("FBLPromises", "../ThirdParty/FBLPromises.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add (new Framework ("PromisesObjC", "../ThirdParty/PromisesObjC.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("FBSDKCoreKit_Basics", "../ThirdParty/FBSDKCoreKit_Basics.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("GoogleAppMeasurement", "../ThirdParty/GoogleAppMeasurement.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("GoogleAppMeasurementIdentitySupport", "../ThirdParty/GoogleAppMeasurementIdentitySupport.embeddedframework.zip"));
@@ -166,6 +165,7 @@ public class YodoAds : ModuleRules
 			string LibrariesPath = Path.Combine(ThirdPartyPath, "Libraries");
 
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libGDTMobSDK.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libAFNetworking.a"));
 
 			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/IOS"));
 			
