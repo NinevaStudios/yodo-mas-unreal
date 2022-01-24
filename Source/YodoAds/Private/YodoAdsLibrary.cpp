@@ -12,7 +12,7 @@
 #include "Android/YAMethodCallUtils.h"
 #include "Android/YAJavaConvertor.h"
 #elif PLATFORM_IOS
-#import <Yodo1MasCore/Yodo1Mas.h>
+#import <Yodo1Mas.h>
 
 #include "IOS/YAAdDelegate.h"
 #include "IOS/YAUtils.h"

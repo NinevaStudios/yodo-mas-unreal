@@ -142,7 +142,6 @@ public class YodoAds : ModuleRules
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileAds", "../ThirdParty/YandexMobileAds.embeddedframework.zip", "YandexMobileAdsBundle.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetrica", "../ThirdParty/YandexMobileMetrica.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetricaCrashes", "../ThirdParty/YandexMobileMetricaCrashes.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasCore", "../ThirdParty/Yodo1MasCore.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationAdColony", "../ThirdParty/Yodo1MasMediationAdColony.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationAdMob", "../ThirdParty/Yodo1MasMediationAdMob.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationApplovin", "../ThirdParty/Yodo1MasMediationApplovin.embeddedframework.zip"));
@@ -166,6 +165,7 @@ public class YodoAds : ModuleRules
 
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libGDTMobSDK.a"));
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libAFNetworking.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasCore.a"));
 
 			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/IOS"));
 			

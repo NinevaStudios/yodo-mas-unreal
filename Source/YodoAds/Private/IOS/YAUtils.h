@@ -3,7 +3,7 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
-#import <Yodo1MasCore/Yodo1Mas.h>
+#import <Yodo1Mas.h>
 
 namespace YAUtils
 {

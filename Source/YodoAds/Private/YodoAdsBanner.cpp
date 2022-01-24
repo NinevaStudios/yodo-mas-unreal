@@ -5,7 +5,7 @@
 #include "Async/Async.h"
 
 #if PLATFORM_IOS
-#import <Yodo1MasCore/Yodo1MasBannerAdView.h>
+#import <Yodo1MasBannerAdView.h>
 #import "IOSAppDelegate.h"
 
 #include "IOS/YAUtils.h"

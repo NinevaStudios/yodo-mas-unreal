@@ -3,8 +3,8 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
-#import <Yodo1MasCore/Yodo1Mas.h>
-#import <Yodo1MasCore/Yodo1MasBannerAdView.h>
+#import <Yodo1Mas.h>
+#import <Yodo1MasBannerAdView.h>
 
 @interface YAInterstitialAdDelegate : NSObject <Yodo1MasInterstitialAdDelegate>
 
