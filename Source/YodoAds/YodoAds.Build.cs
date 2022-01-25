@@ -114,7 +114,6 @@ public class YodoAds : ModuleRules
 			PublicSystemLibraries.Add("iconv");
 			PublicSystemLibraries.Add("z");
 			
-			// PublicAdditionalFrameworks.Add (new Framework ("AFNetworking", "../ThirdParty/AFNetworking.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("AdColony", "../ThirdParty/AdColony.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("AppLovinSDK", "../ThirdParty/AppLovinSDK.embeddedframework.zip", "AppLovinSDKResources.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUAdSDK", "../ThirdParty/BUAdSDK.embeddedframework.zip", "BUAdSDK.bundle"));
@@ -142,23 +141,43 @@ public class YodoAds : ModuleRules
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileAds", "../ThirdParty/YandexMobileAds.embeddedframework.zip", "YandexMobileAdsBundle.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetrica", "../ThirdParty/YandexMobileMetrica.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetricaCrashes", "../ThirdParty/YandexMobileMetricaCrashes.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationAdColony", "../ThirdParty/Yodo1MasMediationAdColony.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationAdMob", "../ThirdParty/Yodo1MasMediationAdMob.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationApplovin", "../ThirdParty/Yodo1MasMediationApplovin.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationFacebook", "../ThirdParty/Yodo1MasMediationFacebook.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationFyber", "../ThirdParty/Yodo1MasMediationFyber.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationInMobi", "../ThirdParty/Yodo1MasMediationInMobi.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationIronSource", "../ThirdParty/Yodo1MasMediationIronSource.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationMyTarget", "../ThirdParty/Yodo1MasMediationMyTarget.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationPangle", "../ThirdParty/Yodo1MasMediationPangle.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationTapjoy", "../ThirdParty/Yodo1MasMediationTapjoy.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationTencent", "../ThirdParty/Yodo1MasMediationTencent.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationUnityAds", "../ThirdParty/Yodo1MasMediationUnityAds.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationVungle", "../ThirdParty/Yodo1MasMediationVungle.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationYandex", "../ThirdParty/Yodo1MasMediationYandex.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("Yodo1MasMediationYodo1", "../ThirdParty/Yodo1MasMediationYodo1.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1SaAnalyticsSDK", "../ThirdParty/Yodo1SaAnalyticsSDK.embeddedframework.zip", "Yodo1SensorsAnalyticsSDK.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("nanopb", "../ThirdParty/nanopb.embeddedframework.zip"));
+			
+			// Mediation Adapters
+			PublicAdditionalFrameworks.Add(new Framework("AdColonyAdapter", "../ThirdParty/AdColonyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinAdapter", "../ThirdParty/AppLovinAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationAdColonyAdapter", "../ThirdParty/AppLovinMediationAdColonyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationByteDanceAdapter", "../ThirdParty/AppLovinMediationByteDanceAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationFacebookAdapter", "../ThirdParty/AppLovinMediationFacebookAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationFyberAdapter", "../ThirdParty/AppLovinMediationFyberAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationGoogleAdapter", "../ThirdParty/AppLovinMediationGoogleAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationInMobiAdapter", "../ThirdParty/AppLovinMediationInMobiAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationIronSourceAdapter", "../ThirdParty/AppLovinMediationIronSourceAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationMyTargetAdapter", "../ThirdParty/AppLovinMediationMyTargetAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationTapjoyAdapter", "../ThirdParty/AppLovinMediationTapjoyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationTencentGDTAdapter", "../ThirdParty/AppLovinMediationTencentGDTAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationUnityAdsAdapter", "../ThirdParty/AppLovinMediationUnityAdsAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationVungleAdapter", "../ThirdParty/AppLovinMediationVungleAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("AppLovinMediationYandexAdapter", "../ThirdParty/AppLovinMediationYandexAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("FacebookAdapter", "../ThirdParty/FacebookAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("FyberAdapter", "../ThirdParty/FyberAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISAdColonyAdapter", "../ThirdParty/ISAdColonyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISAdMobAdapter", "../ThirdParty/ISAdMobAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISAppLovinAdapter", "../ThirdParty/ISAppLovinAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISFacebookAdapter", "../ThirdParty/ISFacebookAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISFyberAdapter", "../ThirdParty/ISFyberAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISInMobiAdapter", "../ThirdParty/ISInMobiAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISPangleAdapter", "../ThirdParty/ISPangleAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISTapjoyAdapter", "../ThirdParty/ISTapjoyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISUnityAdsAdapter", "../ThirdParty/ISUnityAdsAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("ISVungleAdapter", "../ThirdParty/ISVungleAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("InMobiAdapter", "../ThirdParty/InMobiAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("IronSourceAdapter", "../ThirdParty/IronSourceAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("MyTargetAdapter", "../ThirdParty/MyTargetAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("TapjoyAdapter", "../ThirdParty/TapjoyAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("UnityAdapter", "../ThirdParty/UnityAdapter.embeddedframework.zip"));
+			PublicAdditionalFrameworks.Add(new Framework("VungleAdapter", "../ThirdParty/VungleAdapter.embeddedframework.zip"));
 			
 			string ThirdPartyPath = Path.Combine(ModuleDirectory, "../ThirdParty");
 			string LibrariesPath = Path.Combine(ThirdPartyPath, "Libraries");
@@ -166,8 +185,45 @@ public class YodoAds : ModuleRules
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libGDTMobSDK.a"));
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libAFNetworking.a"));
 			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasCore.a"));
+			
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationIronSource.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationMyTarget.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationPangle.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationAdColony.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationTapjoy.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationAdMob.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationTencent.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationApplovin.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationUnityAds.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationFacebook.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationVungle.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationFyber.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationYandex.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationInMobi.a"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libYodo1MasMediationYodo1.a"));
 
 			PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/IOS"));
+			
+			string HeadersPath = Path.Combine(ModuleDirectory, "../ThirdParty", "Headers");
+			
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "AFNetworking"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationFacebook"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationTapjoy"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "GDTMobSDK"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationFyber"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationTencent"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasCore"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationInMobi"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationUnityAds"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationAdColony"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationIronSource"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationVungle"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationAdMob"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationMyTarget"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationYandex"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationApplovin"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationPangle"));
+			PublicIncludePaths.Add(Path.Combine(HeadersPath, "Yodo1MasMediationYodo1"));
 			
 			PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "../ThirdParty", "Headers"));
 
