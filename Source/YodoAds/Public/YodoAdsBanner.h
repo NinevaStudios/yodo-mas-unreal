@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Private/NativeObjectWrapper.h"
+#include "NativeObjectWrapper.h"
 
 #include "YodoAdsLibrary.h"
 

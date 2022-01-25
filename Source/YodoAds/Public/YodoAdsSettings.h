@@ -14,21 +14,21 @@ class YODOADS_API UYodoAdsSettings : public UObject
 public:
 
 	/** Whether the application targets audience of 13 years and under. */
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Meta = (DisplayName = "App targets children under 13 years"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads", Meta = (DisplayName = "App targets children under 13 years"))
 	bool bTargetsKids = false;
 
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Android", Meta = (DisplayName = "Android App Key"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads|Android", Meta = (DisplayName = "Android App Key"))
 	FString AndroidAppKey;
 
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Android", Meta = (DisplayName = "Android Admob App ID"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads|Android", Meta = (DisplayName = "Android Admob App ID"))
 	FString AndroidAdmobAppId;
 
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "iOS App Key"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads|iOS", Meta = (DisplayName = "iOS App Key"))
 	FString iOSAppKey;
 
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "iOS Admob App ID"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads|iOS", Meta = (DisplayName = "iOS Admob App ID"))
 	FString iOSAdmobAppId;
 	
-	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "iOS", Meta = (DisplayName = "User Tracking Usage Description"))
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Yodo Ads|iOS", Meta = (DisplayName = "User Tracking Usage Description"))
 	FString UserTrackingUsageDescription;
 };
