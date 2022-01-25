@@ -226,7 +226,9 @@ void UYodoAdsLibrary::ShowRewardedAd(const FString& Placement)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showRewardedAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
 #elif PLATFORM_IOS
-	[[Yodo1Mas sharedInstance] showRewardAd];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[Yodo1Mas sharedInstance] showRewardAd];
+	});
 #endif
 }
 
@@ -286,7 +288,9 @@ void UYodoAdsLibrary::ShowInterstitialAd(const FString& Placement)
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallStaticVoidMethod(YodoAdsClassName, "showInterstitialAd", "(Landroid/app/Activity;Ljava/lang/String;)V", FJavaWrapper::GameActivityThis, YAJavaConvertor::GetJavaString(Placement));
 #elif PLATFORM_IOS
-	[[Yodo1Mas sharedInstance] showInterstitialAd];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[Yodo1Mas sharedInstance] showInterstitialAd];
+	});
 #endif
 }
 
