@@ -1,3 +1,12 @@
+# Yodo MAS SDK for Unreal Engine 4
+
+This plugin provides Unreal Engine 4 integration for YODO1 MAS Service.
+
+Documentation: https://docs.ninevastudios.com/#/ue-plugins/yodo-unreal
+Our web-site: https://ninevastudios.com
+
+---
+
 # Update SDK guide
 ## Android
 Go to YodoAds_Android_UPL.xml file and change dependencies.
