@@ -2,8 +2,8 @@
 
 This plugin provides Unreal Engine 4 integration for YODO1 MAS Service.
 
-Documentation: https://docs.ninevastudios.com/#/ue-plugins/yodo-unreal
-Our web-site: https://ninevastudios.com
+* Documentation: https://docs.ninevastudios.com/#/ue-plugins/yodo-unreal
+* Our web-site: https://ninevastudios.com
 
 ---
 
