@@ -1,4 +1,6 @@
-# Yodo MAS SDK for Unreal Engine 4
+# Unofficial Yodo MAS SDK for Unreal Engine 4
+
+Disclaimer: this plugin is in no way associated with Yodo1, this is just a wrapper on top of their official Android and iOS SDKs.
 
 This plugin provides Unreal Engine 4 integration for YODO1 MAS Service.
 
