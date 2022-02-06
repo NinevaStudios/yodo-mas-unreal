@@ -2,11 +2,11 @@
 <!--
     Copyright (c) 2022 Nineva Studios
 -->
-<root xmlns:android="http://schemas.android.com/apk/res/android">
+<root>
 
   <init>
-    <log text="[AdmobGoodies] Android UPL initialization"/>
-    <setBoolFromProperty result="TargetsKids" ini="Engine" section="/Script/YodoAds.YodoAdsSettings" property="bTargetsKids"/>
+    <log text="[YodoAds] Android UPL initialization"/>
+    <setBoolFromProperty result="TargetsKids" ini="Engine" section="/Script/YodoAds.YodoAdsSettings" property="bTargetsKids" default="false" />
     <setStringFromProperty result="AdmobAppID" ini="Engine" section="/Script/YodoAds.YodoAdsSettings" property="AndroidAdmobAppId"/>
   </init>
 
