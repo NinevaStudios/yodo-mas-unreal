@@ -9,7 +9,7 @@
 	"CreatedByURL": "https://ninevastudios.com/",
 	"DocsURL": "https://docs.ninevastudios.com/#/ue-plugins/yodo-unreal",
 	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/a7749b083e5d4cdcb96684a4c912393e",
-	"EngineVersion": "4.27.0",
+	"EngineVersion": "4.25.0",
 	"SupportURL": "mailto:support@ninevastudios.com",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
