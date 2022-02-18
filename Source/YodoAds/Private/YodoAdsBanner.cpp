@@ -10,6 +10,7 @@
 
 #include "IOS/YAUtils.h"
 #include "IOS/YAAdDelegate.h"
+YABannerAdDelegate* BannerAdDelegate;
 #endif
 
 void UYodoAdsBanner::SetSize(EYABannerSize Size)

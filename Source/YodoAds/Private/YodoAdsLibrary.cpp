@@ -13,9 +13,10 @@
 #include "Android/YAJavaConvertor.h"
 #elif PLATFORM_IOS
 #import <Yodo1Mas.h>
-
 #include "IOS/YAAdDelegate.h"
 #include "IOS/YAUtils.h"
+static YAInterstitialAdDelegate* InterstitialAdDelegate;
+static YARewardedAdDelegate* RewardedAdDelegate;
 #endif
 
 FYAVoidDelegate UYodoAdsLibrary::OnInitializeSuccess;
@@ -31,11 +32,6 @@ FYAErrorDelegate UYodoAdsLibrary::OnInterstitialAdError;
 FYAVoidDelegate UYodoAdsLibrary::OnInterstitialAdClosed;
 
 const ANSICHAR* UYodoAdsLibrary::YodoAdsClassName = "com/ninevastudios/yodoads/YodoAds";
-
-#if PLATFORM_IOS
-YAInterstitialAdDelegate* UYodoAdsLibrary::InterstitialAdDelegate;
-YARewardedAdDelegate* UYodoAdsLibrary::RewardedAdDelegate;
-#endif
 
 void UYodoAdsLibrary::SetConfig(const FYodoAdsConfig& Config)
 {

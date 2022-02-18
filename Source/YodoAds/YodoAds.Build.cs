@@ -121,12 +121,12 @@ public class YodoAds : ModuleRules
 			PublicAdditionalFrameworks.Add (new Framework ("BUFoundation", "../ThirdParty/BUFoundation.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("BUVAAuxiliary", "../ThirdParty/BUVAAuxiliary.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("FBAudienceNetwork", "../ThirdParty/FBAudienceNetwork.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("PromisesObjC", "../ThirdParty/PromisesObjC.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("FBSDKCoreKit_Basics", "../ThirdParty/FBSDKCoreKit_Basics.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("GoogleAppMeasurement", "../ThirdParty/GoogleAppMeasurement.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("PromisesObjC", "../ThirdParty/PromisesObjC.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("FBSDKCoreKit_Basics", "../ThirdParty/FBSDKCoreKit_Basics.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("GoogleAppMeasurement", "../ThirdParty/GoogleAppMeasurement.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("GoogleAppMeasurementIdentitySupport", "../ThirdParty/GoogleAppMeasurementIdentitySupport.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("GoogleMobileAds", "../ThirdParty/GoogleMobileAds.embeddedframework.zip"));
-			PublicAdditionalFrameworks.Add (new Framework ("GoogleUtilities", "../ThirdParty/GoogleUtilities.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("GoogleUtilities", "../ThirdParty/GoogleUtilities.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("IASDKCore", "../ThirdParty/IASDKCore.embeddedframework.zip", "IASDKResources.bundle"));
 			PublicAdditionalFrameworks.Add (new Framework ("IASDKMRAID", "../ThirdParty/IASDKMRAID.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("IASDKVideo", "../ThirdParty/IASDKVideo.embeddedframework.zip"));
@@ -142,7 +142,7 @@ public class YodoAds : ModuleRules
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetrica", "../ThirdParty/YandexMobileMetrica.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("YandexMobileMetricaCrashes", "../ThirdParty/YandexMobileMetricaCrashes.embeddedframework.zip"));
 			PublicAdditionalFrameworks.Add (new Framework ("Yodo1SaAnalyticsSDK", "../ThirdParty/Yodo1SaAnalyticsSDK.embeddedframework.zip", "Yodo1SensorsAnalyticsSDK.bundle"));
-			PublicAdditionalFrameworks.Add (new Framework ("nanopb", "../ThirdParty/nanopb.embeddedframework.zip"));
+			// PublicAdditionalFrameworks.Add (new Framework ("nanopb", "../ThirdParty/nanopb.embeddedframework.zip"));
 			
 			// Mediation Adapters
 			PublicAdditionalFrameworks.Add(new Framework("AdColonyAdapter", "../ThirdParty/AdColonyAdapter.embeddedframework.zip"));
