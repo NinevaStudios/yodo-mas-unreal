@@ -146,7 +146,4 @@ public:
 private:
 	EYABannerSize BannerSize = EYABannerSize::Banner;
 
-#if PLATFORM_IOS
-	YABannerAdDelegate* BannerAdDelegate;
-#endif
 };
