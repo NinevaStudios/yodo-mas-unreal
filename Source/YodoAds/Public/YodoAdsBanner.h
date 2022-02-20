@@ -57,6 +57,8 @@ class YODOADS_API UYodoAdsBanner : public UNativeObjectWrapper
 	GENERATED_BODY()
 
 public:
+	UYodoAdsBanner();
+	~UYodoAdsBanner();
 
 	/**
 	* Set the banner size. Call before loading.
@@ -145,5 +147,4 @@ public:
 
 private:
 	EYABannerSize BannerSize = EYABannerSize::Banner;
-
 };

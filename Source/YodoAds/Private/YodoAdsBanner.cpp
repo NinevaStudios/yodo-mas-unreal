@@ -13,6 +13,16 @@
 YABannerAdDelegate* BannerAdDelegate;
 #endif
 
+UYodoAdsBanner::UYodoAdsBanner()
+{
+	this->AddToRoot();
+}
+
+UYodoAdsBanner::~UYodoAdsBanner()
+{
+	this->RemoveFromRoot();
+}
+
 void UYodoAdsBanner::SetSize(EYABannerSize Size)
 {
 	UE_LOG(LogYodoAds, Verbose, TEXT("UYodoAdsBanner::SetSize"));
