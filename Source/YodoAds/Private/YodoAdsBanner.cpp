@@ -39,7 +39,7 @@ void UYodoAdsBanner::SetPlacement(const FString& PlacementId)
 
 #if PLATFORM_ANDROID
 	YAMethodCallUtils::CallVoidMethod(JavaObject, "setAdPlacement",
-		"(Ljava/lang/String;)V", JavaObject, YAJavaConvertor::GetJavaString(PlacementId));
+		"(Ljava/lang/String;)V", YAJavaConvertor::GetJavaString(PlacementId));
 #elif PLATFORM_IOS
 	[((Yodo1MasBannerAdView*) IOSObject) setAdPlacement:PlacementId.GetNSString()];
 #endif
